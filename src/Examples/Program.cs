@@ -2,22 +2,24 @@
 using Dpurp.Json;
 using Examples.Model;
 using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 
 namespace Examples
 {
     class Program
     {
+        private static readonly string executingPath = 
+            Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         static void Main(string[] args)
         {
+            TestBlogWithJson();
         }
 
         static void TestBlogWithJson()
         {
-            var jsonContext = new JsonFileContext(@"\");
+            var jsonContext = new JsonFileContext(executingPath);
             IRepository<Blog> blogRepository = new JsonFileRepository<Blog>(jsonContext);
             IRepository<Post> postRepository = new JsonFileRepository<Post>(jsonContext);
 
