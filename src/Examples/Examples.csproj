@@ -76,8 +76,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Author.cs" />
     <Compile Include="Model\Blog.cs" />
+    <Compile Include="Model\Course.cs" />
     <Compile Include="Model\Post.cs" />
+    <Compile Include="Model\Tag.cs" />
+    <Compile Include="Persistence\PlutoContext.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -89,6 +93,10 @@
     <ProjectReference Include="..\Dpurp.Abstractions\Dpurp.Abstractions.csproj">
       <Project>{5d748ae9-87a6-476c-a35f-84162da55d6d}</Project>
       <Name>Dpurp.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dpurp.Csv\Dpurp.Csv.csproj">
+      <Project>{c432b644-6dda-427b-bf05-7afde5fb9125}</Project>
+      <Name>Dpurp.Csv</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dpurp.EntityFramework\Dpurp.EntityFramework.csproj">
       <Project>{437ba77a-53fb-4238-824f-58369d6fff15}</Project>

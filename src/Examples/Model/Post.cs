@@ -1,5 +1,4 @@
-﻿
-namespace Examples.Model
+﻿namespace Examples.Model
 {
     public class Post
     {

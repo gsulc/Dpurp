@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dpurp", "Dpurp\Dpurp.csproj", "{4F422A2B-7947-4711-9463-0C490F6BD22D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dpurp", "Dpurp\Dpurp.csproj", "{4F422A2B-7947-4711-9463-0C490F6BD22D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dpurp.Xml", "Dpurp.Xml\Dpurp.Xml.csproj", "{A4265CCF-DCDC-41B0-B8CB-44C96DBD4A1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dpurp.Xml", "Dpurp.Xml\Dpurp.Xml.csproj", "{A4265CCF-DCDC-41B0-B8CB-44C96DBD4A1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dpurp.Json", "Dpurp.Json\Dpurp.Json.csproj", "{5066BBEB-EAF8-406B-B234-9BBA5CCBE621}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dpurp.Json", "Dpurp.Json\Dpurp.Json.csproj", "{5066BBEB-EAF8-406B-B234-9BBA5CCBE621}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dpurp.Abstractions", "Dpurp.Abstractions\Dpurp.Abstractions.csproj", "{5D748AE9-87A6-476C-A35F-84162DA55D6D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dpurp.EntityFramework", "Dpurp.EntityFramework\Dpurp.EntityFramework.csproj", "{437BA77A-53FB-4238-824F-58369D6FFF15}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples", "Examples\Examples.csproj", "{97AEC7E1-E9E5-4F13-A4DD-857BDFCC925B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dpurp.Csv", "Dpurp.Csv\Dpurp.Csv.csproj", "{C432B644-6DDA-427B-BF05-7AFDE5FB9125}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{97AEC7E1-E9E5-4F13-A4DD-857BDFCC925B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97AEC7E1-E9E5-4F13-A4DD-857BDFCC925B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97AEC7E1-E9E5-4F13-A4DD-857BDFCC925B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C432B644-6DDA-427B-BF05-7AFDE5FB9125}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C432B644-6DDA-427B-BF05-7AFDE5FB9125}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C432B644-6DDA-427B-BF05-7AFDE5FB9125}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C432B644-6DDA-427B-BF05-7AFDE5FB9125}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,6 +9,7 @@ namespace Dpurp.Xml
     public class XmlFileContext
     {
         private readonly string _folderPath;
+        private readonly IDictionary<Type, IList<object>> _sets = new Dictionary<Type, IList<object>>();
 
         public XmlFileContext(string folderPath)
         {
@@ -35,6 +36,9 @@ namespace Dpurp.Xml
 
         public IList<TItem> Set<TItem>()
         {
+            Type type = typeof(TItem);
+            if (_sets.Keys.Contains(type))
+                return (_sets[type] as IList<TItem>);
             string filePath = GetFullPath<TItem>();
             IList<TItem> items = new List<TItem>();
             if (File.Exists(filePath))
@@ -45,6 +49,7 @@ namespace Dpurp.Xml
                     items = serializer.Deserialize(stream) as List<TItem>;
                 }
             }
+            _sets.Add(type, items as IList<object>);
             return items;
         }
     }

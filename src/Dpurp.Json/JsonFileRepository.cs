@@ -1,5 +1,4 @@
-﻿using Dpurp.Abstractions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -66,11 +65,6 @@ namespace Dpurp.Json
         {
             foreach (var item in items)
                 JsonSet.Remove(item);
-            SaveChanges();
-        }
-
-        public void Update(TItem item)
-        {
             SaveChanges();
         }
     }

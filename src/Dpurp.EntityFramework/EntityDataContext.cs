@@ -33,5 +33,10 @@ namespace Dpurp.EntityFramework
         {
             _unregisteredEntityTypes.Enqueue(type);
         }
+
+        public void SaveChanges<TItem>(IList<TItem> items)
+        {
+            SaveChanges();
+        }
     }
 }

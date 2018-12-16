@@ -1,5 +1,4 @@
-﻿using Dpurp.Abstractions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -17,7 +16,7 @@ namespace Dpurp.EntityFramework
             _dataContext.RegisterEntityType(typeof(TItem));
         }
 
-        protected virtual DbSet<TItem> DbEntities
+        protected virtual DbSet<TItem> Items
         {
             get
             {
@@ -25,7 +24,7 @@ namespace Dpurp.EntityFramework
             }
         }
 
-        public IQueryable<TItem> Entities { get { return DbEntities; } }
+        public IQueryable<TItem> Entities { get { return Items; } }
 
         // TODO: remove
         public void SaveChanges()
@@ -35,45 +34,40 @@ namespace Dpurp.EntityFramework
 
         public IEnumerable<TItem> Find(Func<TItem, bool> predicate)
         {
-            return DbEntities.Where(predicate);
+            return Items.Where(predicate);
         }
 
         public TItem Get(int id)
         {
-            return DbEntities.Find(id);
+            return Items.Find(id);
         }
 
         public IEnumerable<TItem> GetAll()
         {
-            return DbEntities.AsEnumerable();
+            return Items.AsEnumerable();
         }
 
         public void Add(TItem item)
         {
-            DbEntities.Add(item);
+            Items.Add(item);
             SaveChanges(); // TODO: remove
         }
 
         public void AddRange(IEnumerable<TItem> items)
         {
-            DbEntities.AddRange(items);
+            Items.AddRange(items);
             SaveChanges(); // TODO: remove
         }
 
         public void Remove(TItem item)
         {
-            DbEntities.Remove(item);
+            Items.Remove(item);
             SaveChanges(); // TODO: remove
         }
 
         public void RemoveRange(IEnumerable<TItem> items)
         {
-            DbEntities.RemoveRange(items);
-            SaveChanges(); // TODO: remove
-        }
-
-        public void Update(TItem item)
-        {
+            Items.RemoveRange(items);
             SaveChanges(); // TODO: remove
         }
     }

@@ -1,4 +1,5 @@
-﻿using Dpurp.Abstractions;
+﻿using Dpurp;
+using Dpurp.Csv;
 using Dpurp.EntityFramework;
 using Dpurp.Json;
 using Dpurp.Xml;
@@ -20,6 +21,7 @@ namespace Examples
             SqlServer,
             XmlFileStore,
             JsonFileStore,
+            CsvFileStore
         }
 
         class ApplicationSettings
@@ -35,7 +37,7 @@ namespace Examples
         {
             var appSettings = new ApplicationSettings
             {
-                DataProvider = DataProviderType.XmlFileStore,
+                DataProvider = DataProviderType.CsvFileStore,
                 ConnectionString = executingPath
             };
             
@@ -48,7 +50,7 @@ namespace Examples
 
             var blog = new Blog { Name = name };
             blogRepository.Add(blog);
-            //blogRepository.SaveChanges();
+            blogRepository.SaveChanges();
 
             // Display all Blogs from the database 
             var query = blogRepository.GetAll().OrderBy(b => b.Name);
@@ -87,9 +89,14 @@ namespace Examples
                             new InjectionConstructor(settings.ConnectionString));
                         container.RegisterType(typeof(IRepository<>), typeof(JsonFileRepository<>));
                         break;
-
+                    case DataProviderType.CsvFileStore:
+                        container.RegisterType<FileContext, CsvFileContext>();
+                        container.RegisterType<CsvFileContext>(
+                            new InjectionConstructor(settings.ConnectionString));
+                        container.RegisterType(typeof(IRepository<>), typeof(FileRepository<>));
+                        break;
                     default:
-                        throw new Exception($"The DataProvider Type {settings.DataProvider} is unknown");
+                        throw new Exception($"The DataProvider Type {settings.DataProvider} is unknown.");
                 }
 
                 return container.Resolve<IRepository<T>>();

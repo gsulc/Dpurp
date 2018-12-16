@@ -1,5 +1,4 @@
-﻿using Dpurp.Abstractions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,69 +7,64 @@ namespace Dpurp.Xml
     public class XmlFileRepository<TItem> : IRepository<TItem> where TItem : class
     {
         private XmlFileContext _xmlFileContext;
-        private IList<TItem> _xmlSet;
+        private IList<TItem> _items;
 
         public XmlFileRepository(XmlFileContext xmlFileContext)
         {
             _xmlFileContext = xmlFileContext;
         }
 
-        public IList<TItem> XmlSet
+        public IList<TItem> Items
         {
             get
             {
-                return _xmlSet ?? (_xmlSet = _xmlFileContext.Set<TItem>());
+                return _items ?? (_items = _xmlFileContext.Set<TItem>());
             }
         }
 
         public void SaveChanges()
         {
-            _xmlFileContext.SaveChanges(XmlSet);
+            _xmlFileContext.SaveChanges(Items);
         }
 
         public void Add(TItem item)
         {
-            XmlSet.Add(item);
+            Items.Add(item);
             SaveChanges();
         }
 
         public void AddRange(IEnumerable<TItem> items)
         {
             foreach (var item in items)
-                XmlSet.Add(item);
+                Items.Add(item);
             SaveChanges();
         }
 
         public IEnumerable<TItem> Find(Func<TItem, bool> predicate)
         {
-            return XmlSet.Where(predicate);
+            return Items.Where(predicate);
         }
 
         public TItem Get(int id)
         {
-            return XmlSet[id];
+            return Items[id];
         }
 
         public IEnumerable<TItem> GetAll()
         {
-            return XmlSet.AsEnumerable();
+            return Items.AsEnumerable();
         }
 
         public void Remove(TItem item)
         {
-            XmlSet.Remove(item);
+            Items.Remove(item);
             SaveChanges();
         }
 
         public void RemoveRange(IEnumerable<TItem> items)
         {
             foreach (var item in items)
-                XmlSet.Remove(item);
-            SaveChanges();
-        }
-
-        public void Update(TItem item)
-        {
+                Items.Remove(item);
             SaveChanges();
         }
     }

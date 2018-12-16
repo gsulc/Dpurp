@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Dpurp.Abstractions
+namespace Dpurp
 {
     public interface IRepository<TItem> where TItem : class
     {
@@ -12,7 +12,6 @@ namespace Dpurp.Abstractions
         void AddRange(IEnumerable<TItem> items);
         void Remove(TItem item);
         void RemoveRange(IEnumerable<TItem> items);
-        void Update(TItem item);
         void SaveChanges();
     }
 }
