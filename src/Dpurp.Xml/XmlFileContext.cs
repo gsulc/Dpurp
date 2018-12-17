@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
@@ -6,22 +7,29 @@ using System.Xml.Serialization;
 namespace Dpurp.Xml
 {
     // TODO: Performance
-    public class XmlFileContext
+    public class XmlFileContext : FileContext
     {
         private readonly string _folderPath;
         private readonly IDictionary<Type, IList<object>> _sets = new Dictionary<Type, IList<object>>();
 
         public XmlFileContext(string folderPath)
+            : base(folderPath)
         {
-            _folderPath = folderPath ?? throw new ArgumentNullException("folderPath");
         }
 
-        private string GetFullPath<TItem>()
+        public override string FileExtension => "xml";
+
+        public override IList<TItem> ReadItems<TItem>()
         {
-            return Path.Combine(_folderPath, $"{typeof(TItem).Name}.xml");
+            string filePath = GetFullPath<TItem>();
+            using (var stream = File.OpenRead(filePath))
+            {
+                var serializer = new XmlSerializer(typeof(List<TItem>));
+                return serializer.Deserialize(stream) as List<TItem>;
+            }
         }
 
-        public void SaveChanges<TItem>(IList<TItem> items)
+        public override void SaveChanges<TItem>(IList<TItem> items)
         {
             if (items == null || items.Count == 0)
                 return;
@@ -34,23 +42,17 @@ namespace Dpurp.Xml
             }
         }
 
-        public IList<TItem> Set<TItem>()
+        public override void SaveChanges(IList items, Type type)
         {
-            Type type = typeof(TItem);
-            if (_sets.Keys.Contains(type))
-                return (_sets[type] as IList<TItem>);
-            string filePath = GetFullPath<TItem>();
-            IList<TItem> items = new List<TItem>();
-            if (File.Exists(filePath))
+            if (items == null || items.Count == 0)
+                return;
+            string filePath = GetFullPath(type);
+            using (var writer = new StreamWriter(filePath))
             {
-                using (var stream = File.OpenRead(filePath))
-                {
-                    var serializer = new XmlSerializer(typeof(List<TItem>));
-                    items = serializer.Deserialize(stream) as List<TItem>;
-                }
+                var serializer = new XmlSerializer(typeof(List<object>));
+                serializer.Serialize(writer, items);
+                writer.Flush();
             }
-            _sets.Add(type, items as IList<object>);
-            return items;
         }
     }
 }

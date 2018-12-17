@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 
@@ -13,7 +14,7 @@ namespace Dpurp
             FolderPath = folderPath ?? throw new ArgumentNullException("folderPath");
         }
 
-        protected IDictionary<Type, IList<object>> Sets { get; } = new Dictionary<Type, IList<object>>();
+        protected IDictionary<Type, IList> Sets { get; } = new Dictionary<Type, IList>();
 
         public string FolderPath { get; protected set; }
         public abstract string FileExtension { get; }
@@ -29,7 +30,7 @@ namespace Dpurp
         }
 
         public abstract void SaveChanges<TItem>(IList<TItem> items);
-        public abstract void SaveChanges(IList<object> items, Type type);
+        public abstract void SaveChanges(IList items, Type type);
         public abstract IList<TItem> ReadItems<TItem>();
 
         public IList<TItem> Set<TItem>()
@@ -58,10 +59,10 @@ namespace Dpurp
 
         protected void AddToSets<TItem>(IList<TItem> items)
         {
-            AddToSets(items as IList<object>, typeof(TItem));
+            AddToSets(items as IList, typeof(TItem));
         }
 
-        protected void AddToSets(IList<object> items, Type type)
+        protected void AddToSets(IList items, Type type)
         {
             if (!Sets.Keys.Contains(type))
                 Sets.Add(type, items ?? new List<object>());

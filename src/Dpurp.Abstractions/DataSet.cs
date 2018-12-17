@@ -1,11 +1,19 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Dpurp
 {
+    public class DataSet
+    {
+
+    }
+
     public abstract class DataSet<TItem> : IEnumerable<TItem>, IEnumerable where TItem : class
     {
+        private IList<TItem> _items;
+
         public IEnumerator<TItem> GetEnumerator()
         {
             throw new NotImplementedException();
@@ -19,7 +27,7 @@ namespace Dpurp
 
     public class DataSets
     {
-        IDictionary<Type, IList<object>> Sets { get; } = new Dictionary<Type, IList<object>>();
+        IDictionary<Type, IList> Sets { get; } = new Dictionary<Type, IList>();
 
         public IList<object> this[Type type]
         {
@@ -27,6 +35,11 @@ namespace Dpurp
             {
                 throw new NotImplementedException();
             }
+        }
+
+        public IList<TItem> GetItems<TItem>()
+        {
+            return (Sets as IEnumerable<TItem>).ToList();
         }
     }
 }

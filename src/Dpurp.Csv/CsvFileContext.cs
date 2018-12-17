@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,7 +21,7 @@ namespace Dpurp.Csv
             fileManager.Save(items as IEnumerable<object>, GetFullPath<TItem>());
         }
 
-        public override void SaveChanges(IList<object> items, Type type)
+        public override void SaveChanges(IList items, Type type)
         {
             if (items == null || items.Count == 0)
                 return;
