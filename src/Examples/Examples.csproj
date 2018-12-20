@@ -41,6 +41,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="LiteDB, Version=4.1.4.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiteDB.4.1.4\lib\net40\LiteDB.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -105,6 +108,10 @@
     <ProjectReference Include="..\Dpurp.Json\Dpurp.Json.csproj">
       <Project>{5066bbeb-eaf8-406b-b234-9bba5ccbe621}</Project>
       <Name>Dpurp.Json</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dpurp.LiteDb\Dpurp.LiteDb.csproj">
+      <Project>{e5cb718f-da2a-40b0-abd8-a01567cc0ce0}</Project>
+      <Name>Dpurp.LiteDb</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dpurp.Xml\Dpurp.Xml.csproj">
       <Project>{a4265ccf-dcdc-41b0-b8cb-44c96dbd4a1b}</Project>

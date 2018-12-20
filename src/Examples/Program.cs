@@ -2,6 +2,7 @@
 using Dpurp.Csv;
 using Dpurp.EntityFramework;
 using Dpurp.Json;
+using Dpurp.LiteDb;
 using Dpurp.Xml;
 using Examples.Model;
 using System;
@@ -21,7 +22,8 @@ namespace Examples
             SqlServer,
             XmlFileStore,
             JsonFileStore,
-            CsvFileStore
+            CsvFileStore,
+            LiteDbStore
         }
 
         class ApplicationSettings
@@ -30,15 +32,15 @@ namespace Examples
             public string ConnectionString;
         }
 
-        private static readonly string executingPath = 
+        private static readonly string _executingPath = 
             Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         static void Main(string[] args)
         {
             var appSettings = new ApplicationSettings
             {
-                DataProvider = DataProviderType.JsonFileStore,
-                ConnectionString = executingPath
+                DataProvider = DataProviderType.LiteDbStore,
+                ConnectionString = @"Blog.db"
             };
             
             IRepository<Blog> blogRepository = CreateRepo<Blog>(appSettings);
@@ -77,14 +79,12 @@ namespace Examples
                             new InjectionConstructor(settings.ConnectionString));
                         container.RegisterType(typeof(IRepository<>), typeof(EntityRepository<>));
                         break;
-
                     case DataProviderType.XmlFileStore:
                         container.RegisterType<FileContext, XmlFileContext>();
                         container.RegisterType<XmlFileContext>(
                             new InjectionConstructor(settings.ConnectionString));
                         container.RegisterType(typeof(IRepository<>), typeof(FileRepository<>));
                         break;
-
                     case DataProviderType.JsonFileStore:
                         container.RegisterType<FileContext, JsonFileContext>();
                         container.RegisterType<JsonFileContext>(
@@ -96,6 +96,11 @@ namespace Examples
                         container.RegisterType<CsvFileContext>(
                             new InjectionConstructor(settings.ConnectionString));
                         container.RegisterType(typeof(IRepository<>), typeof(FileRepository<>));
+                        break;
+                    case DataProviderType.LiteDbStore:
+                        container.RegisterType<LiteDbContext>(
+                            new InjectionConstructor(settings.ConnectionString));
+                        container.RegisterType(typeof(IRepository<>), typeof(LiteDbRepository<>));
                         break;
                     default:
                         throw new Exception($"The DataProvider Type {settings.DataProvider} is unknown.");
