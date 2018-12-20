@@ -42,7 +42,11 @@ namespace Dpurp
 
         public TItem Get(int id)
         {
-            return Items[id];
+            var property = GetIdProperty();
+            if (property != null)
+                return Items.Where(i => GetIdValue(i) == id).First();
+            else
+                return Items[id];
         }
 
         public IEnumerable<TItem> GetAll()
