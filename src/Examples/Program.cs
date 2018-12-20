@@ -37,7 +37,7 @@ namespace Examples
         {
             var appSettings = new ApplicationSettings
             {
-                DataProvider = DataProviderType.XmlFileStore,
+                DataProvider = DataProviderType.JsonFileStore,
                 ConnectionString = executingPath
             };
             
@@ -86,9 +86,10 @@ namespace Examples
                         break;
 
                     case DataProviderType.JsonFileStore:
+                        container.RegisterType<FileContext, JsonFileContext>();
                         container.RegisterType<JsonFileContext>(
                             new InjectionConstructor(settings.ConnectionString));
-                        container.RegisterType(typeof(IRepository<>), typeof(JsonFileRepository<>));
+                        container.RegisterType(typeof(IRepository<>), typeof(FileRepository<>));
                         break;
                     case DataProviderType.CsvFileStore:
                         container.RegisterType<FileContext, CsvFileContext>();

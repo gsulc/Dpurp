@@ -1,32 +1,53 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 
 namespace Dpurp.Json
 {
-    public class JsonFileContext
+    public class JsonFileContext : FileContext
     {
         private readonly string _folderPath;
 
         public JsonFileContext(string folderPath)
+            : base(folderPath)
         {
-            _folderPath = folderPath ?? throw new ArgumentNullException("folderPath");
         }
 
-        private string GetFullPath<TItem>()
+        public override string FileExtension => "json";
+
+        public override IList<TItem> ReadItems<TItem>()
         {
-            return Path.Combine(_folderPath, $"{typeof(TItem).Name}.json");
+            var filePath = GetFullPath<Type>();
+            using (var stream = File.OpenRead(filePath))
+            using (var streamReader = new StreamReader(stream))
+            using (var jsonReader = new JsonTextReader(streamReader))
+            {
+                var serializer = new JsonSerializer();
+                return serializer.Deserialize<IList<TItem>>(jsonReader);
+            }
         }
 
-        public void SaveChanges<TItem>(IList<TItem> items)
+        public override void SaveChanges<TItem>(IList<TItem> items)
         {
             if (items == null || items.Count == 0)
                 return;
             string filePath = GetFullPath<TItem>();
+            SaveChanges(items.ToGenericList(), filePath);
+        }
 
+        public override void SaveChanges(IList items, Type type)
+        {
+            if (items == null || items.Count == 0)
+                return;
+            string filePath = GetFullPath(type);
+            SaveChanges(items, filePath);
+        }
+
+        private void SaveChanges(IList items, string filePath)
+        {
             var serializer = new JsonSerializer();
-
             using (var stream = new FileStream(filePath, FileMode.Create))
             using (var streamWriter = new StreamWriter(stream))
             using (JsonWriter jsonWriter = new JsonTextWriter(streamWriter))
@@ -34,23 +55,6 @@ namespace Dpurp.Json
                 serializer.Serialize(jsonWriter, items);
                 streamWriter.Flush();
             }
-        }
-
-        public IList<TItem> Set<TItem>()
-        {
-            string filePath = GetFullPath<TItem>();
-            IList<TItem> items = new List<TItem>();
-            if (File.Exists(filePath))
-            {
-                using (var stream = File.OpenRead(filePath))
-                using (var streamReader = new StreamReader(stream))
-                using (var jsonReader = new JsonTextReader(streamReader))
-                {
-                    var serializer = new JsonSerializer();
-                    items = serializer.Deserialize<IList<TItem>>(jsonReader);
-                }
-            }
-            return items;
         }
     }
 }

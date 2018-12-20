@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
 namespace Dpurp
@@ -15,6 +13,17 @@ namespace Dpurp
             //foreach (var item in list)
             //    genericList.Add(item);
             //return genericList;
+        }
+
+        public static IList<T> ToSpecificList<T>(this IList list)
+        {
+            return list.AsEnumerable<T>().ToList();
+        }
+
+        public static IEnumerable<T> AsEnumerable<T>(this IList list)
+        {
+            foreach (var item in list)
+                yield return (T)item;
         }
     }
 }
