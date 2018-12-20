@@ -8,8 +8,6 @@ namespace Dpurp.Json
 {
     public class JsonFileContext : FileContext
     {
-        private readonly string _folderPath;
-
         public JsonFileContext(string folderPath)
             : base(folderPath)
         {

@@ -9,7 +9,6 @@ namespace Dpurp.Xml
     // TODO: Performance
     public class XmlFileContext : FileContext
     {
-        private readonly string _folderPath;
         private readonly IDictionary<Type, IList<object>> _sets = new Dictionary<Type, IList<object>>();
 
         public XmlFileContext(string folderPath)
