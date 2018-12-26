@@ -26,7 +26,6 @@ namespace Dpurp.EntityFramework
 
         public IQueryable<TItem> Entities { get { return Items; } }
 
-        // TODO: remove
         public void SaveChanges()
         {
             _dataContext.SaveChanges();
@@ -50,25 +49,21 @@ namespace Dpurp.EntityFramework
         public void Add(TItem item)
         {
             Items.Add(item);
-            SaveChanges(); // TODO: remove
         }
 
         public void AddRange(IEnumerable<TItem> items)
         {
             Items.AddRange(items);
-            SaveChanges(); // TODO: remove
         }
 
         public void Remove(TItem item)
         {
             Items.Remove(item);
-            SaveChanges(); // TODO: remove
         }
 
         public void RemoveRange(IEnumerable<TItem> items)
         {
             Items.RemoveRange(items);
-            SaveChanges(); // TODO: remove
         }
     }
 }

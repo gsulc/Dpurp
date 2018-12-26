@@ -9,10 +9,6 @@ namespace Dpurp
         public static IList ToGenericList<T>(this IList<T> list)
         {
             return list.AsEnumerable().ToList();
-            //var genericList = new List();
-            //foreach (var item in list)
-            //    genericList.Add(item);
-            //return genericList;
         }
 
         public static IList<T> ToSpecificList<T>(this IList list)
