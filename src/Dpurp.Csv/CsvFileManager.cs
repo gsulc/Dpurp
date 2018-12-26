@@ -27,7 +27,8 @@ namespace Dpurp.Csv
             foreach (var line in lines)
             {
                 var elements = line.Split(',');
-                if (UsingHeader && line == lines.First())
+                var firstLine = lines.First();
+                if (UsingHeader && line == firstLine)
                 {
                     ParseHeader(line);
                 }
