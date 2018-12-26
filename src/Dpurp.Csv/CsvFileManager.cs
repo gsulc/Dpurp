@@ -62,7 +62,7 @@ namespace Dpurp.Csv
                 if (string.IsNullOrEmpty(stringValue))
                     continue;
                 var type = _configProperties[i].PropertyType;
-                var value = Convert.ChangeType(stringValue, type);
+                var value = ExtendedConvert.ChangeType(stringValue, type);
                 _configProperties[i].SetValue(obj, value);
             }
             return obj;
